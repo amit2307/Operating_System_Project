@@ -5,19 +5,24 @@
 void AvgTime(int process[], int n, int brust[],int quant)
 {
     int i,wt[n], temp[n], total_wt = 0, total_time= 0;
+    int avg_wait,avg_turnaround;
     WaitingTime(process, n,brust, wt, quant);
     TurnAroundTime(process, n, brust, wt, temp);
-    printf("Processes :  Burst time :  Waiting time :   Turn around time : \n");
+    printf("Processes : Burst time :  Waiting time :   Turn around time : \n");
 
     for (i=0; i<n; i++)
     {
         total_wt = total_wt + wt[i];
         total_time = total_time + temp[i];
-        printf(" i+1 \t\t  %d \t  %d \t\t %d\n",brust,wt[i],temp[i]);
+        printf("%d \t\t  %d \t \t %d \t\t\t%d\n",i+1,brust[i],wt[i],temp[i]);
     }
- 
-    printf("Average waiting time = %d",(float)total_wt / (float)n);
-    printf("\n Average turn around time = %d",(float)total_time/(float)n);
+
+    // average query time and average waiting time
+    avg_wait=total_wt/n;
+    avg_turnaround=total_time/n;
+    
+    printf("\n Time he spend on handling query is : %d",avg_turnaround);
+    printf("\n Average query time is : %d",avg_wait);
 }
 
 //waiting time frome here
@@ -70,9 +75,38 @@ void TurnAroundTime(int process[], int n,int brust[], int wt[], int temp[])
 
 int main()
 {
-    int process[] = { 1, 2, 3};
+ 
+    int x;
+    printf("Enter number of process you want to enter : ");
+    scanf("%d",&x);
+    int process[x],process1[x];
+    printf("Enter time Student will take : ");
+    for(int i=1;i<=x;i++)
+    {
+	scanf("%d",&process[i]);
+    }
+    
+    printf("Enter time faculty will take : ");
+    for(int i=1;i<=x;i++)
+    {
+	scanf("%d",&process1[i]);
+    }
+
     int n = sizeof process / sizeof process[0];
-    int burst_time[] = {10, 5, 8};
+
+    printf("Enter brust time of students process : ");
+    int burst_time[x]; 
+    for(int i=1;i<=x;i++)
+    {
+	scanf("%d",&burst_time[i]);
+    }
+
+    printf("Enter brust time of faculty process : ");
+    int burst_time1[x]; 
+    for(int i=1;i<=x;i++)
+    {
+	scanf("%d",&burst_time1[i]);
+    }
     int quantum = 2;
     AvgTime(process, n, burst_time, quantum);
     return 0;
